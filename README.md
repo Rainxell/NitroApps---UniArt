@@ -1,5 +1,5 @@
 # NitroApps : UniArt
-* Integrantes:
+## Integrantes:
  * Anto Chávez, Carolain Marisol - u201319550
  * Anco Galvez, Jorge Martin - u20191b984
  * Jurado Garay, Gonzalo Alejandro - u202010216
