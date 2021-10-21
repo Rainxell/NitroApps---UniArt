@@ -1,0 +1,296 @@
+<html>
+<head>
+	<title>UniArt</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv=”Content-Language” content=”ej”/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" type="image/svg+xml" href="icon.svg">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<!--script src="<?php echo $path?>scripts/jquery-3.5.1.min.js"></script-->
+	<style>
+	main > * { 
+		min-height: calc(100% - 14em);
+		position: relative;
+		padding: 5em 4em;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		column-gap: 4em;
+		row-gap: 2em;
+		flex-flow: column;
+		text-align: center;
+	}
+	#s1 { background: var(--portada); }
+	#s2 { background-color: var(--color-sec); }
+	#s3 { background-color: var(--color-main); }
+	#s5 { background-color: var(--color-dark); }
+	#s3,#s5 { color: var(--color-base); }
+	#s5 .big { color: var(--color-accent); }
+	#s6 { background-color: var(--color-accent); }
+
+	#s1 {
+		flex-flow: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		background-attachment: fixed;
+		/*width: calc(100% - 14em); /* (5em + 2em)*2 */
+	}
+	#s1 * { position: relative; }
+	#s1::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(270deg, #F64975 0%, rgba(246, 73, 117, 0) 100%);
+	}
+	#icon-big-wt {
+		width: 50%;
+		flex-grow: 0;
+	}
+	.card.dark {
+		color: var(--color-light);
+		background-color: var(--color-dark);
+		border: 1pt solid var(--color-sec);
+		outline: 4pt solid var(--color-dark);
+		padding: 2em;
+		max-width: calc(50% - 10em);
+		min-width: 24em;
+		flex-grow: 1;
+		display: flex;
+		flex-flow: column;
+		row-gap: 2em;
+	}
+	.card.dark p { font-weight: bold; }
+	.card.dark ul li { font-size: var(--tsize-small); }
+
+	#s2 .coffeti { margin: -3em 0px -2em; }
+	#s3 .coffeti { margin: -2em 0px -3em; }
+
+	#s4 .sum, #s4 .union {
+		display: flex;
+		align-self: stretch;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+	}
+	#s4 .sum {
+		column-gap: 2em;
+		row-gap: 2em;
+	}
+	#s4 .itxt {
+		display: flex;
+		flex-flow: column;
+		font-weight: bold;
+		text-transform: uppercase;
+		justify-content: flex-end;
+		row-gap: 1em;
+	}
+	#s4 .itxt:hover, #s4 .union p:hover, #s4 .union i:hover {
+		transform: scale(1.2);
+	}
+	#s4 .itxt img { max-height: 4em; }
+	#s4 .union {
+		font-weight: bold;
+		align-items: center;
+		font-size: var(--tsize-tall);
+	}
+	#s4 .union i.icon { max-height: 6em; }
+	#s4 .union .p1, #s4 .union .p2 { max-width: 10em; }
+	#s4 .union .p1 {
+		color: var(--color-sec);
+		text-align: left;
+	}
+	#s4 .union .p2 {
+		color: var(--color-main);
+		text-align: right;
+	}
+
+	#s5 { row-gap: 4em; }
+	#s5 .desc {
+		display: flex;
+		column-gap: 2em;
+		row-gap: 2em;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	#s5 .desc ul, #s5 .desc img { min-width: 16em; }
+	#s5 .desc img { max-width: 67%; }
+	#s5 .desc img:hover {
+		transform: scale(1.15) rotate(2deg);
+		box-shadow: var(--shadow-bottom);
+	}
+	#s5 .desc ul {
+		text-align: left;
+		max-width: 25em;
+	}
+	#s5 .desc ul p {
+		font-weight: bold;
+		margin-bottom: 0.5em;
+		font-size: var(--tsize-tall);
+	}
+	@media (max-width: 1100px) {
+	main > * { 
+		padding: 4em 2em;
+		column-gap: 2em;
+	}
+	</style>
+</head>
+<body>
+	<header>
+		<div>
+			<div id="logo" class="active"></div>
+			<input type="text" id="search" placeholder="Busca por nombre del producto o artista">
+		</div>
+		<nav>
+			<a href="#"><div id="explorar" class="site">Explorar</div></a>
+			<a href="#"><div id="chat" class="site"></div></a>
+			<a href="#"><div id="org" class="site"></div></a>
+			<a href="#"><div id="buyingc" class="site"></div></a>
+			<a href="#"><div id="profile" class="artist"></div></a>
+		</nav>
+	</header>
+
+	<main>
+
+		<section id="s1">
+			<div class="card dark">
+				<div class="big">UNIFICANDO <span class="t-main">PASIONES</span> Y <span class="t-sec">EMPRENDIMIENTOS</span>.</div>
+				<p>Únete a nuestra comunidad de artistas y emprendedores y podrás:</p>
+				<ul>
+					<li>Ver el progreso y estado de tus solicitudes de servicios</li>
+					<li>Comunicarte diréctamente con el artista comisionado</li>
+					<li>Encontrar artistas independientes variados</li>
+					<li>Encontrar eficazmente el servicio artístico que buscas</li>
+				</ul>
+			</div>
+			<img id='icon-big-wt' src='images/icon_BIG.svg' alt="ícono grande">
+		</section>
+
+		<section id="s2">
+			<div class="coffeti"></div>
+			<p class="big">Servicios más populares</p>
+			<div class="cards">
+				<div class="card">
+					<div class="img"></div>
+					<div class="frame"></div>
+					<h1><a href="#">Realizaré producto realizaré producto</a></h1>
+					<div class="resume">
+						<a href="#"><span class="user">
+							<img src="images/profiles/photo-profile-artist.png" alt="nomusu">
+							<span class="usname">NombreArtista</span>
+						</span></a>
+						<div class="rating small">
+							<i class="ic-star"></i>
+							<div class="prom">/</div>
+							<div class="votes">-</div>
+						</div>
+					</div>
+					<div class="resume">
+						<div>
+							<strong>2d</strong>
+							APROX.
+						</div>
+						<div>
+							DESDE
+							<strong>$10</strong>
+						</div>
+					</div>
+				</div><!--card-->
+			</div><!--cards-->
+			<button class="light">DESCUBRIR MÁS</button>
+		</section>
+
+		<section id="s3">
+			<p class="big">¡Artistas en estreno!</p>
+			<div class="cards">
+				<div class="card artist">
+					<div class="img"></div>
+					<div class="frame"></div>
+					<div class="resume">
+						<img src="images/profiles/photo-profile-artist.png" alt="imagen artista">
+						<div class="info">
+							<h2 class="aname">NombreArtista</h2>
+							<span class="alocation"><i class="ic-location"></i> Perú</span>
+						</div>
+					</div>
+					<ul>
+						<li>Actividad 1...</li>
+						<li>Actividad 2...</li>
+					</ul>
+				</div><!--card-->
+			</div><!--cards-->
+			<button class="light">DESCUBRIR MÁS</button>
+			<div class="coffeti"></div>
+		</section>
+
+		<section id="s4">
+			<p class="big">Lo que más requieres para un buen freelo artístico</p>
+			<div class="sum">
+				<span class="itxt"><img src="images/landing/s_communication.svg" alt="comunicacion">Comunicación</span>
+				<i class="ic-plus"></i>
+				<span class="itxt"><img src="images/landing/s_organization.svg" alt="organizacion">Organización</span>
+				<i class="ic-plus"></i>
+				<span class="itxt"><img src="images/landing/s_efficacy.svg" alt="eficacia">Eficacia</span>
+			</div>
+			<div class="union">
+				<p class="p1">EMPRENDEDORES TALENTOSOS</p>
+				<i class="icon"></i>
+				<p class="p2">ARTISTAS INDEPENDIENTES</p>
+			</div>
+		</section>
+
+		<section id="s5">
+			<div class="big">¿Cómo lo logramos?</div>
+			<div class="desc">
+				<ul><p>Comunicación</p>
+					<li>Comunicarte diréctamente con el artista comisionado.</li>
+					<li>Conoce más del artista visitando sus otras redes sociales desde su perfil.</li>
+					<li>Elige entre diferentes características del servicio ofrecido, ¡e incluso incluye referencias! Todo para mantener una misma idea del servicio final.</li>
+				</ul>
+				<img src="images/landing/screens_communication.png" alt="pantallazos">
+			</div>
+			<div class="desc">
+				<ul><p>Organización</p>
+					<li>Manténte al tanto del progreso de las artes solicitadas mediante el tablero de historial.</li>
+					<li>Filtra las comisiones realizadas, en progreso. y verifica los servicios próntos a entregarse.</li>
+					<li>Cuando un artista realiza un avane en el proyecto, podrás verificarlo desde tu historial.</li>
+				</ul>
+				<img src="images/landing/screens_organization.png" alt="organizacion">
+			</div>
+			<div class="desc">
+				<ul><p>Eficacia</p>
+					<li>Filtra detalladamente el servicio que estás buscando.</li>
+					<li>Brinda un primer alcance detallado al artista y ahorra tiempo.</li>
+					<li>Observa los avances y comunica las observaciones por cada revisión.</li>
+				</ul>
+				<img src="images/landing/screens_efficacy.png" alt="eficacia">
+			</div>
+		</section>
+
+		<section id="s6">
+			<div class="coffeti"></div>
+			<p class="big">¡Únete a la comunidad!</p>
+			<button class="main">REGISTRARME</button>
+			<div class="coffeti"></div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="legal">
+			<span>© 2021</span>
+			<span>Condiciones de uso</span>
+			<span>Privacidad</span>
+		</div>
+		<div class="sm">
+			<span>Síguenos en</span>
+			<span><i class="ic-sm_ig"></i> Facebook</span>
+			<span><i class="ic-sm_ig"></i> Instagram</span>
+		</div>
+	</footer>
+</body>
+</html>
