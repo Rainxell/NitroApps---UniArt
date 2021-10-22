@@ -10,8 +10,14 @@ namespace Uniart.Services
     {
         public static IServiceCollection AddInjection(this IServiceCollection services)
         {
-            return services.AddTransient<ICustomerRepository, CustomerRepository>()
-                .AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IArtistaRepository, ArtistaRepository>();
+            services.AddTransient<IArtistaService, ArtistaService>();
+            services.AddTransient<IPaisRepository, PaisRepository>();
+            services.AddTransient<IPaisService, PaisService>();
+            services.AddTransient<ICiudadRepository, CiudadRepository>();
+            services.AddTransient<ICiudadService, CiudadService>();
+            return services.AddScoped<IUsuarioRepository, UsuarioRepository>()
+                .AddScoped<IUsuarioService, UsuarioService>();
         }
     }
 }

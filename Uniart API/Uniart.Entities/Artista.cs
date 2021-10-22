@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Uniart.Entities
 {
-    public class Artista:EntityBase
+    public class Artista
     {
-        public int Cuenta_Usuario_id { get; set; }
-        public Cuenta_Usuario Cuenta_Usuario { get; set; }
-
-        public int Category_id { get; set; }
-        public Category Category { get; set; }
-
-        [Required]
-        public DateTime fecha_registro { get; set; }
-
-        [Required]
-        [StringLength(255)]
-        public string localizacion { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(2000)]
-        public string descripcion { get; set; }
+        public string Descripcion { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string Url_foto_portada { get; set; }
+
+        public byte Rating { get; set; }
+        public int Q_valoraciones { get; set; }
+
+        [ForeignKey("Id")]
+        public Usuario Usuario { get; set; }
+
+        public IList<Red_Social_Artista> Redes_Sociales_Artistas { get; set; }
     }
 }
