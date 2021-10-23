@@ -22,6 +22,8 @@ namespace Uniart.Services
             services.AddTransient<IRed_SocialService, Red_SocialService>();
             services.AddTransient<IVariacion_DetalleRepository, Variacion_DetalleRepository>();
             services.AddTransient<IVariacion_DetalleService, Variacion_DetalleService>();
+            services.AddTransient<IValoracionRepository, ValoracionRepository>();
+            services.AddTransient<IValoracionServices, ValoracionService>();
             return services.AddScoped<IUsuarioRepository, UsuarioRepository>()
                 .AddScoped<IUsuarioService, UsuarioService>();
         }
