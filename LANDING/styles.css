@@ -63,7 +63,7 @@ h4 { font-size: var(--tsize-small); }
 	content: url(images/bgs/coffetti.svg);
 }
 a, button, select { cursor: pointer; }
-input { cursor: text; }
+input, textarea { cursor: text; }
 .t-sec { color: var(--color-sec); }
 .t-main { color: var(--color-main); }
 p { line-height: 1.2em; }
@@ -160,26 +160,27 @@ header {
 	top: 0px;
 	width: calc(100% - 4em);
 	column-gap: 2em;
-	row-gap: 0.25em;
-	padding: 1em 2em;
+	row-gap: 0.5em;
+	padding: 0.5em 2em;
 }
 header > * {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	column-gap: 2em;
+	column-gap: 1.5em;
 }
 header > div, header > div input { flex-grow: 1; }
-header div * { max-height: 2em; }
 header div #logo {
 	height: 2em;
 	content: url('images/logo.svg');
 }
+header nav { font-family: var(--font-title); }
+header nav a {
+	display: flex;
+	column-gap: 0.5em;
+	align-items: center;
+}
 header nav .site { max-height: 1.5em; }
-header nav #chat { content: url('images/nav/m_chat.svg'); }
-header nav #explorar { /**/ }
-header nav #org { content: url('images/nav/m_organizer.svg'); }
-header nav #buyingc { content: url('images/nav/m_shopping_cart.svg'); }
 header nav #profile {
 	width: 2.5em;
 	height: 2.5em;
@@ -190,9 +191,10 @@ header nav #profile.artist { background-image: var(--img-artist); }
 header nav #profile.client { background-image: var(--img-client); }
 header .active {
 	border-bottom: 2pt solid var(--color-main);
-	padding-bottom: 2pt;
-	margin-bottom: -4pt;
+	margin-bottom: -12pt;
+    padding-bottom: 2pt;
 }
+header nav .active { padding-bottom: 10pt; }
 header nav > :not(.active):hover {
 	margin-top: -0.2em;
 	padding-bottom: 0.2em;
@@ -222,7 +224,7 @@ footer > div {
 }
 
 /*main*/
-main { margin-top: 4.5em; }
+main { margin-top: 3.5em; }
 main > * { max-width: 100%; }
 .big {
 	font-size: var(--tsize-big);
@@ -249,14 +251,16 @@ i[class^="ic-"] {
 	margin: -0.1em 0px;
 }
 i.icon { content: url('icon.svg'); }
+i.ic-search { content: url('images/actions/b_search.svg'); }
+i.ic-explore { content: url('images/nav/m_explore.svg'); }
+i.ic-chat { content: url('images/nav/m_chat.svg'); }
+i.ic-org { content: url('images/nav/m_organizer.svg'); }
+i.ic-buyingc { content: url('images/nav/m_shopping_cart.svg'); }
 i.ic-plus { content: url('images/actions/b_plus.svg'); }
 i.ic-star { content: url('images/regular/star_yellow.svg'); }
 i.ic-star.empty { content: url('images/regular/star_white.svg'); }
 i.ic-star.none { content: url('images/regular/star_gray.svg'); }
 i.ic-location { content: url('images/regular/location.svg'); }
-i.ic-search { content: url('images/regular/search.svg'); }
-i.ic-explore { content: url('images/regular/explore.svg'); }
-
 
 /*Rating*/
 .rating {
@@ -341,7 +345,7 @@ i.ic-explore { content: url('images/regular/explore.svg'); }
 .card .resume {
 	display: flex;
 	justify-content: space-between;
-	text-align: left;
+	flex-wrap: wrap;
 }
 
 
@@ -371,14 +375,13 @@ i.ic-explore { content: url('images/regular/explore.svg'); }
 }
 
 }
-@media (max-width: 750px) {
-
-header {
-	flex-flow: column;
-	padding: 0.75em 2em 0.5em;
+@media (max-width: 880px) {
+header a span { display: none; }
+.cards {
+	column-gap: 0.5em;
+	row-gap: 0.5em;
 }
-main { margin-top: 5.5em; }
-
+.card { max-width: calc(33% - 3.5em); }
 }
 
 @media (max-width: 640px) {
@@ -389,12 +392,24 @@ main { margin-top: 5.5em; }
 	--tsize-big: 20pt;
 	--tsize-bigger: 48pt;
 }
-
+header {
+	flex-flow: column;
+	padding: 0.5em 1em 0.25em;
+	width: calc(100% - 2em);
+}
+header > * {
+	justify-content: space-around;
+	column-gap: 1em;
+}
+header a span { display: block; }
+header button { margin-left: -2.5em; }
+header .active { margin-bottom: -8pt; }
+main { margin-top: 5.5em; }
 }
 
 @media (max-width: 565px) {
 .card {
-	width: 14em;
+	max-width: calc(50% - 3em);
 	padding: 1.25em;
 	row-gap: 0.75em;
 }
@@ -406,6 +421,24 @@ main { margin-top: 5.5em; }
 .card.artist img {
 	height: 7em;
 	margin-top: -4.5em;
+}
+
+
+}
+
+
+@media (max-width: 500px) {
+header a span { display: none; }
+header div #logo { content: url('icon.svg'); }
+.card { padding: 1em; }
+.card .img {
+	margin: -1em;
+	width: calc(100% + 2em);
+	margin-bottom: 0px;
+}
+.card > .resume:first-child {
+	flex-direction: column;
+	align-items: center;
 }
 
 }
