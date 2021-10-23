@@ -145,6 +145,7 @@
 		#s5 .desc img { max-width: 55%; }
 	}
 	@media (max-width: 800px) {
+		main > * { padding: 4em 0.25em; }
 		#s5 .desc { flex-wrap: wrap; }
 	}
 	@media (max-width: 960px) {
@@ -164,11 +165,11 @@
 			<button id="search"><i class="ic-search"></i></button>
 		</div>
 		<nav>
-			<a href="#"><div id="explorar" class="site">Explorar</div></a>
-			<a href="#"><div id="chat" class="site"></div></a>
-			<a href="#"><div id="org" class="site"></div></a>
-			<a href="#"><div id="buyingc" class="site"></div></a>
-			<a href="#"><div id="profile" class="artist"></div></a>
+			<a href="#"><span>Explorar</span><i id="explorar" class="site ic-explore"></i></a>
+			<a href="#" class="active"><span>Chat</span><i id="chat" class="site ic-chat"></i></a>
+			<a href="#"><span>Projects</span><i id="org" class="site ic-org"></i></a>
+			<a href="#"><span>Cart</span><i id="buyingc" class="site ic-buyingc"></i></a>
+			<a href="#"><span>Anónimo</span><div id="profile" class="artist"></div></a>
 		</nav>
 	</header>
 
