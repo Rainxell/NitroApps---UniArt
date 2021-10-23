@@ -36,5 +36,25 @@ namespace UniArt.Api.Controllers
         {
             await _service.Create(request);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<UsuarioDto>> Put(int id, [FromBody] UsuarioDto request)
+        {
+            if (id != request.Id)
+                return BadRequest();
+
+            await _service.Update(id , request);
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<UsuarioDto>> Delete(int id)
+        {
+            var userToDelete = _service.GetUsuario(id);
+            if (userToDelete == null)
+                return NotFound();
+            await _service.Delete(userToDelete.Id);
+            return NoContent();
+        }
     }
 }

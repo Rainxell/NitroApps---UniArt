@@ -46,11 +46,14 @@ namespace Uniart.DataAccess
 
         public async Task Delete(int id)
         {
-            _context.Entry(new Usuario
-            {
-                Id = id
-            }).State = EntityState.Deleted;
+            var usuarioTodelete = await _context.Usuarios.FindAsync(id);
+            _context.Usuarios.Remove(usuarioTodelete);
             await _context.SaveChangesAsync();
+            //_context.Entry(new Usuario
+            //{
+            //    Id = id
+            //}).State = EntityState.Deleted;
+            //await _context.SaveChangesAsync();
         }
     }
 }

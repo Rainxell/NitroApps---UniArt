@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Uniart.DataAccess.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,7 +65,8 @@ namespace Uniart.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -150,18 +151,18 @@ namespace Uniart.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Pais_Id = table.Column<int>(type: "int", nullable: true),
-                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Pais_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ciudades", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ciudades_Paises_Pais_Id",
-                        column: x => x.Pais_Id,
+                        name: "FK_Ciudades_Paises_Pais_id",
+                        column: x => x.Pais_id,
                         principalTable: "Paises",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,6 +218,56 @@ namespace Uniart.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Servicios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Artista_Id = table.Column<int>(type: "int", nullable: true),
+                    Duracion_esperada = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Precio_base = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Rating = table.Column<short>(type: "smallint", nullable: false),
+                    Q_valoraciones = table.Column<int>(type: "int", nullable: false),
+                    Es_virtual = table.Column<bool>(type: "bit", nullable: false),
+                    Porc_adelanto = table.Column<int>(type: "int", nullable: false),
+                    acepta_rembolso = table.Column<bool>(type: "bit", nullable: false),
+                    Estilo_Id = table.Column<int>(type: "int", nullable: true),
+                    Tecnica_Id = table.Column<int>(type: "int", nullable: true),
+                    Acerca_servicio = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
+                    Licencia_Id = table.Column<int>(type: "int", nullable: true),
+                    Q_reviciones = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Servicios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Servicios_Estilos_Estilo_Id",
+                        column: x => x.Estilo_Id,
+                        principalTable: "Estilos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Servicios_Licencias_Licencia_Id",
+                        column: x => x.Licencia_Id,
+                        principalTable: "Licencias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Servicios_Redes_Sociales_Artista_Id",
+                        column: x => x.Artista_Id,
+                        principalTable: "Redes_Sociales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Servicios_Tecnicas_Tecnica_Id",
+                        column: x => x.Tecnica_Id,
+                        principalTable: "Tecnicas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
@@ -229,7 +280,12 @@ namespace Uniart.DataAccess.Migrations
                     Apellido = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Ciudad_Id = table.Column<int>(type: "int", nullable: true),
                     Url_foto_perfil = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Fecha_registro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Fecha_registro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    Url_foto_portada = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    Rating = table.Column<byte>(type: "tinyint", nullable: true),
+                    Q_valoraciones = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -259,198 +315,6 @@ namespace Uniart.DataAccess.Migrations
                         name: "FK_Envios_Comisiones_Comision_Id",
                         column: x => x.Comision_Id,
                         principalTable: "Comisiones",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Artistas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
-                    Url_foto_portada = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Rating = table.Column<byte>(type: "tinyint", nullable: false),
-                    Q_valoraciones = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Artistas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Artistas_Usuarios_Id",
-                        column: x => x.Id,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Usuarios_Tarjetas",
-                columns: table => new
-                {
-                    Tarjeta_id = table.Column<int>(type: "int", nullable: false),
-                    Usuario_id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuarios_Tarjetas", x => new { x.Tarjeta_id, x.Usuario_id });
-                    table.ForeignKey(
-                        name: "FK_Usuarios_Tarjetas_Tarjetas_Tarjeta_id",
-                        column: x => x.Tarjeta_id,
-                        principalTable: "Tarjetas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Usuarios_Tarjetas_Usuarios_Usuario_id",
-                        column: x => x.Usuario_id,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Valoraciones",
-                columns: table => new
-                {
-                    Usuario_id = table.Column<int>(type: "int", nullable: false),
-                    Review_id = table.Column<int>(type: "int", nullable: false),
-                    Es_like = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Valoraciones", x => new { x.Usuario_id, x.Review_id });
-                    table.ForeignKey(
-                        name: "FK_Valoraciones_Reviews_Review_id",
-                        column: x => x.Review_id,
-                        principalTable: "Reviews",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Valoraciones_Usuarios_Usuario_id",
-                        column: x => x.Usuario_id,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Chats",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Artista_Id = table.Column<int>(type: "int", nullable: true),
-                    Usuario_Id = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Chats", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Chats_Artistas_Artista_Id",
-                        column: x => x.Artista_Id,
-                        principalTable: "Artistas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Chats_Usuarios_Usuario_Id",
-                        column: x => x.Usuario_Id,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Redes_Sociales_Artistas",
-                columns: table => new
-                {
-                    Red_social_id = table.Column<int>(type: "int", nullable: false),
-                    Artista_id = table.Column<int>(type: "int", nullable: false),
-                    username = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Redes_Sociales_Artistas", x => new { x.Red_social_id, x.Artista_id });
-                    table.ForeignKey(
-                        name: "FK_Redes_Sociales_Artistas_Artistas_Artista_id",
-                        column: x => x.Artista_id,
-                        principalTable: "Artistas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Redes_Sociales_Artistas_Redes_Sociales_Red_social_id",
-                        column: x => x.Red_social_id,
-                        principalTable: "Redes_Sociales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Servicios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Artista_Id = table.Column<int>(type: "int", nullable: true),
-                    Duracion_esperada = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Precio_base = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Rating = table.Column<short>(type: "smallint", nullable: false),
-                    Q_valoraciones = table.Column<int>(type: "int", nullable: false),
-                    Es_virtual = table.Column<bool>(type: "bit", nullable: false),
-                    Porc_adelanto = table.Column<int>(type: "int", nullable: false),
-                    acepta_rembolso = table.Column<bool>(type: "bit", nullable: false),
-                    Estilo_Id = table.Column<int>(type: "int", nullable: true),
-                    Tecnica_Id = table.Column<int>(type: "int", nullable: true),
-                    Acerca_servicio = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
-                    Licencia_Id = table.Column<int>(type: "int", nullable: true),
-                    Q_reviciones = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Servicios", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Servicios_Artistas_Artista_Id",
-                        column: x => x.Artista_Id,
-                        principalTable: "Artistas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Servicios_Estilos_Estilo_Id",
-                        column: x => x.Estilo_Id,
-                        principalTable: "Estilos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Servicios_Licencias_Licencia_Id",
-                        column: x => x.Licencia_Id,
-                        principalTable: "Licencias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Servicios_Tecnicas_Tecnica_Id",
-                        column: x => x.Tecnica_Id,
-                        principalTable: "Tecnicas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Mensajes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Chat_Id = table.Column<int>(type: "int", nullable: true),
-                    Hora_mensaje = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Texto_mensaje = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mensajes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Mensajes_Chats_Chat_Id",
-                        column: x => x.Chat_Id,
-                        principalTable: "Chats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -561,6 +425,106 @@ namespace Uniart.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Chats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Artista_Id = table.Column<int>(type: "int", nullable: true),
+                    Usuario_Id = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Chats_Redes_Sociales_Artista_Id",
+                        column: x => x.Artista_Id,
+                        principalTable: "Redes_Sociales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Chats_Usuarios_Usuario_Id",
+                        column: x => x.Usuario_Id,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Redes_Sociales_Artistas",
+                columns: table => new
+                {
+                    Red_social_id = table.Column<int>(type: "int", nullable: false),
+                    Artista_id = table.Column<int>(type: "int", nullable: false),
+                    username = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Redes_Sociales_Artistas", x => new { x.Red_social_id, x.Artista_id });
+                    table.ForeignKey(
+                        name: "FK_Redes_Sociales_Artistas_Redes_Sociales_Red_social_id",
+                        column: x => x.Red_social_id,
+                        principalTable: "Redes_Sociales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Redes_Sociales_Artistas_Usuarios_Artista_id",
+                        column: x => x.Artista_id,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios_Tarjetas",
+                columns: table => new
+                {
+                    Tarjeta_id = table.Column<int>(type: "int", nullable: false),
+                    Usuario_id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios_Tarjetas", x => new { x.Tarjeta_id, x.Usuario_id });
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Tarjetas_Tarjetas_Tarjeta_id",
+                        column: x => x.Tarjeta_id,
+                        principalTable: "Tarjetas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Tarjetas_Usuarios_Usuario_id",
+                        column: x => x.Usuario_id,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Valoraciones",
+                columns: table => new
+                {
+                    Usuario_id = table.Column<int>(type: "int", nullable: false),
+                    Review_id = table.Column<int>(type: "int", nullable: false),
+                    Es_like = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Valoraciones", x => new { x.Usuario_id, x.Review_id });
+                    table.ForeignKey(
+                        name: "FK_Valoraciones_Reviews_Review_id",
+                        column: x => x.Review_id,
+                        principalTable: "Reviews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Valoraciones_Usuarios_Usuario_id",
+                        column: x => x.Usuario_id,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Propuestas",
                 columns: table => new
                 {
@@ -612,6 +576,27 @@ namespace Uniart.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Mensajes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Chat_Id = table.Column<int>(type: "int", nullable: true),
+                    Hora_mensaje = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Texto_mensaje = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mensajes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Mensajes_Chats_Chat_Id",
+                        column: x => x.Chat_Id,
+                        principalTable: "Chats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Caracteristicas_Opciones_Servicio_Caracteristica_Id",
                 table: "Caracteristicas_Opciones",
@@ -628,9 +613,9 @@ namespace Uniart.DataAccess.Migrations
                 column: "Usuario_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ciudades_Pais_Id",
+                name: "IX_Ciudades_Pais_id",
                 table: "Ciudades",
-                column: "Pais_Id");
+                column: "Pais_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comisiones_Review_id_ArtistaId",
@@ -772,9 +757,6 @@ namespace Uniart.DataAccess.Migrations
                 name: "Chats");
 
             migrationBuilder.DropTable(
-                name: "Redes_Sociales");
-
-            migrationBuilder.DropTable(
                 name: "Formatos");
 
             migrationBuilder.DropTable(
@@ -793,13 +775,16 @@ namespace Uniart.DataAccess.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
+                name: "Usuarios");
+
+            migrationBuilder.DropTable(
                 name: "Servicios_Caracteristicas");
 
             migrationBuilder.DropTable(
                 name: "Servicios");
 
             migrationBuilder.DropTable(
-                name: "Artistas");
+                name: "Ciudades");
 
             migrationBuilder.DropTable(
                 name: "Estilos");
@@ -808,13 +793,10 @@ namespace Uniart.DataAccess.Migrations
                 name: "Licencias");
 
             migrationBuilder.DropTable(
+                name: "Redes_Sociales");
+
+            migrationBuilder.DropTable(
                 name: "Tecnicas");
-
-            migrationBuilder.DropTable(
-                name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "Ciudades");
 
             migrationBuilder.DropTable(
                 name: "Paises");

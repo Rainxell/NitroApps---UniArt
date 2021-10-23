@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Uniart.DataAccess;
+using Uniart.DataAccess.Variacion_DetalleRepos;
+using Uniart.Services.Variacion_DetalleServ;
 
 namespace Uniart.Services
 {
@@ -16,6 +18,10 @@ namespace Uniart.Services
             services.AddTransient<IPaisService, PaisService>();
             services.AddTransient<ICiudadRepository, CiudadRepository>();
             services.AddTransient<ICiudadService, CiudadService>();
+            services.AddTransient<IRed_SocialRepository, Red_SocialRepository>();
+            services.AddTransient<IRed_SocialService, Red_SocialService>();
+            services.AddTransient<IVariacion_DetalleRepository, Variacion_DetalleRepository>();
+            services.AddTransient<IVariacion_DetalleService, Variacion_DetalleService>();
             return services.AddScoped<IUsuarioRepository, UsuarioRepository>()
                 .AddScoped<IUsuarioService, UsuarioService>();
         }

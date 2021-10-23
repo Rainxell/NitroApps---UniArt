@@ -10,11 +10,8 @@ namespace Uniart.Services
     {
         Task<ICollection<ArtistaDto>> GetCollection(string filter);
         Task<ResponseDto<ArtistaDto>> GetArtista(int id);
-
         Task Create(ArtistaDto request);
-
         Task Update(ArtistaDto request);
-
         Task Delete(int id);
     }
 }

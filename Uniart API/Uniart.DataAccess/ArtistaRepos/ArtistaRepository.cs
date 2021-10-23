@@ -20,7 +20,7 @@ namespace Uniart.DataAccess
         public async Task<ICollection<Artista>> GetCollection(string filter)
         {
             var collection = await _context.Artistas
-                .Where(c => c.Usuario.Nombre.Contains(filter))
+                .Where(c => c.Nombre.Contains(filter))
                 .ToListAsync();
 
             return collection;
@@ -41,15 +41,13 @@ namespace Uniart.DataAccess
         {
             _context.Set<Artista>().Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync(); ;
+            await _context.SaveChangesAsync(); 
         }
 
         public async Task Delete(int id)
         {
-            _context.Entry(new Artista
-            {
-                Id = id
-            }).State = EntityState.Deleted;
+            var artistaToDelete = await _context.Artistas.FindAsync(id);
+            _context.Artistas.Remove(artistaToDelete);
             await _context.SaveChangesAsync();
         }
 

@@ -35,6 +35,7 @@ namespace UniArt.Api.Controllers
         public async Task Create([FromBody] ArtistaDto request)
         {
             await _service.Create(request);
+            
         }
 
         [HttpPut]
@@ -50,10 +51,11 @@ namespace UniArt.Api.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ArtistaDto>> Delete(int id)
         {
-            var artistTodelete = await _service.GetArtista(id);
+            var artistTodelete =  _service.GetArtista(id);
             if (artistTodelete == null)
                 return NotFound();
-            await _service.Delete(artistTodelete);
+            await _service.Delete(artistTodelete.Id);
+            return NoContent();
         }
 
     }

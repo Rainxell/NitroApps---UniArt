@@ -10,6 +10,10 @@ namespace Uniart.Entities
         [Required]
         [StringLength(64)]
         public string Nombre { get; set; }
+        [Required]
+        [StringLength(1000)]
+        public string Link { get; set; }
         public IList<Red_Social_Artista> Redes_Sociales_Artistas { get; set; }
+
     }
 }

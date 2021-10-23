@@ -26,7 +26,8 @@ namespace Uniart.Services
                 Select(p => new CiudadDto
                 {
                     Id = p.Id,
-                    Nombre =p.Nombre
+                    Nombre =p.Nombre,
+                    Pais_id = p.Pais_id,
                 })
                 .ToList();
 
@@ -46,7 +47,8 @@ namespace Uniart.Services
             response.Result = new CiudadDto
             {
                 Id = ciudad.Id,
-                Nombre = ciudad.Nombre
+                Nombre = ciudad.Nombre,
+                Pais_id = ciudad.Pais_id,
             };
 
             response.Success = true;
@@ -61,7 +63,8 @@ namespace Uniart.Services
                 await _repository.Create(new Ciudad
                 {
                     Id = request.Id,
-                    Nombre = request.Nombre
+                    Nombre = request.Nombre,
+                    Pais_id = request.Pais_id,
 
                 });
             }
@@ -76,7 +79,9 @@ namespace Uniart.Services
         {
             await _repository.Update(new Ciudad
             {
-                Nombre =request.Nombre
+                Id = request.Id,
+                Nombre =request.Nombre,
+                Pais_id = request.Pais_id,
             });
         }
 

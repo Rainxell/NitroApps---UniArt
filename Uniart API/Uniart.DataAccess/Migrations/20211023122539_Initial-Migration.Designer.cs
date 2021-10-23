@@ -10,8 +10,8 @@ using Uniart.DataAccess;
 namespace Uniart.DataAccess.Migrations
 {
     [DbContext(typeof(UniartDbContext))]
-    [Migration("20211021075750_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20211023122539_Initial-Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,32 +20,6 @@ namespace Uniart.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Uniart.Entities.Artista", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<int>("Q_valoraciones")
-                        .HasColumnType("int");
-
-                    b.Property<byte>("Rating")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("Url_foto_portada")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Artistas");
-                });
 
             modelBuilder.Entity("Uniart.Entities.Caracteristica_Opciones", b =>
                 {
@@ -103,12 +77,12 @@ namespace Uniart.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Pais_Id")
+                    b.Property<int>("Pais_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Pais_Id");
+                    b.HasIndex("Pais_id");
 
                     b.ToTable("Ciudades");
                 });
@@ -329,6 +303,11 @@ namespace Uniart.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -616,6 +595,10 @@ namespace Uniart.DataAccess.Migrations
                     b.Property<int?>("Ciudad_Id")
                         .HasColumnType("int");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -649,6 +632,8 @@ namespace Uniart.DataAccess.Migrations
                     b.HasIndex("Ciudad_Id");
 
                     b.ToTable("Usuarios");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Usuario");
                 });
 
             modelBuilder.Entity("Uniart.Entities.Usuario_Tarjeta", b =>
@@ -701,13 +686,25 @@ namespace Uniart.DataAccess.Migrations
 
             modelBuilder.Entity("Uniart.Entities.Artista", b =>
                 {
-                    b.HasOne("Uniart.Entities.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasBaseType("Uniart.Entities.Usuario");
 
-                    b.Navigation("Usuario");
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("Q_valoraciones")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Rating")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Url_foto_portada")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.HasDiscriminator().HasValue("Artista");
                 });
 
             modelBuilder.Entity("Uniart.Entities.Caracteristica_Opciones", b =>
@@ -721,7 +718,7 @@ namespace Uniart.DataAccess.Migrations
 
             modelBuilder.Entity("Uniart.Entities.Chat", b =>
                 {
-                    b.HasOne("Uniart.Entities.Artista", "Artista_")
+                    b.HasOne("Uniart.Entities.Red_Social", "Artista_")
                         .WithMany()
                         .HasForeignKey("Artista_Id");
 
@@ -736,11 +733,13 @@ namespace Uniart.DataAccess.Migrations
 
             modelBuilder.Entity("Uniart.Entities.Ciudad", b =>
                 {
-                    b.HasOne("Uniart.Entities.Pais", "Pais_")
-                        .WithMany()
-                        .HasForeignKey("Pais_Id");
+                    b.HasOne("Uniart.Entities.Pais", "Pais")
+                        .WithMany("Ciudades")
+                        .HasForeignKey("Pais_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Pais_");
+                    b.Navigation("Pais");
                 });
 
             modelBuilder.Entity("Uniart.Entities.Comision", b =>
@@ -770,7 +769,7 @@ namespace Uniart.DataAccess.Migrations
             modelBuilder.Entity("Uniart.Entities.Envio_Servicio_Ciudad", b =>
                 {
                     b.HasOne("Uniart.Entities.Ciudad", "Ciudad")
-                        .WithMany("Envios_Servicios_Ciudades")
+                        .WithMany()
                         .HasForeignKey("Ciudad_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -831,7 +830,7 @@ namespace Uniart.DataAccess.Migrations
 
             modelBuilder.Entity("Uniart.Entities.Servicio", b =>
                 {
-                    b.HasOne("Uniart.Entities.Artista", "Artista_")
+                    b.HasOne("Uniart.Entities.Red_Social", "Artista_")
                         .WithMany()
                         .HasForeignKey("Artista_Id");
 
@@ -975,24 +974,19 @@ namespace Uniart.DataAccess.Migrations
                     b.Navigation("Servicio_Variacion");
                 });
 
-            modelBuilder.Entity("Uniart.Entities.Artista", b =>
-                {
-                    b.Navigation("Redes_Sociales_Artistas");
-                });
-
             modelBuilder.Entity("Uniart.Entities.Caracteristica_Opciones", b =>
                 {
                     b.Navigation("Variacion_Detalles");
                 });
 
-            modelBuilder.Entity("Uniart.Entities.Ciudad", b =>
-                {
-                    b.Navigation("Envios_Servicios_Ciudades");
-                });
-
             modelBuilder.Entity("Uniart.Entities.Formato", b =>
                 {
                     b.Navigation("Servicios_Formatos");
+                });
+
+            modelBuilder.Entity("Uniart.Entities.Pais", b =>
+                {
+                    b.Navigation("Ciudades");
                 });
 
             modelBuilder.Entity("Uniart.Entities.Red_Social", b =>
@@ -1034,6 +1028,11 @@ namespace Uniart.DataAccess.Migrations
                     b.Navigation("Usuarios_Tarjetas");
 
                     b.Navigation("Valoraciones");
+                });
+
+            modelBuilder.Entity("Uniart.Entities.Artista", b =>
+                {
+                    b.Navigation("Redes_Sociales_Artistas");
                 });
 #pragma warning restore 612, 618
         }

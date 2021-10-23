@@ -11,50 +11,52 @@ namespace UniArt.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class PaisController : ControllerBase
+    public class RedSocialController : ControllerBase
     {
-        private readonly IPaisService _service;
-        public PaisController(IPaisService service)
+        private readonly IRed_SocialService _service;
+        public RedSocialController(IRed_SocialService service)
         {
             _service = service;
         }
         [HttpGet]
-        public async Task<IEnumerable<PaisDto>> List([FromQuery] string filter)
+        public async Task<IEnumerable<Red_SocialDto>> List([FromQuery] string filter)
         {
             return await _service.GetCollection(filter);
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ResponseDto<PaisDto>> Get(int id)
+        public async Task<ResponseDto<Red_SocialDto>> Get(int id)
         {
-            return await _service.GetPais(id);
+            return await _service.GetRedes(id);
         }
 
         [HttpPost]
-        public async Task Create([FromBody] PaisDto request)
+        public async Task Create([FromBody] Red_SocialDto request)
         {
             await _service.Create(request);
+
         }
 
         [HttpPut]
-        public async Task<ActionResult<PaisDto>> PutArtista(int id, [FromBody] PaisDto request)
+        public async Task<ActionResult<Red_SocialDto>> PutRedes(int id, [FromBody] Red_SocialDto request)
         {
             if (id != request.Id)
                 return BadRequest();
 
-            await _service.Update(id, request);
+            await _service.Update(request);
             return NoContent();
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<PaisDto>> Delete(int id)
+        public async Task<ActionResult<Red_SocialDto>> Delete(int id)
         {
-            var paisToDelete = _service.GetPais(id);
-            if (paisToDelete == null)
+            var artistTodelete = _service.GetRedes(id);
+            if (artistTodelete == null)
                 return NotFound();
-            await _service.Delete(paisToDelete.Id);
+            await _service.Delete(artistTodelete.Id);
             return NoContent();
         }
+
     }
 }

@@ -4,11 +4,10 @@ using System.Text;
 
 namespace Uniart.Dto
 {
-    public class CiudadDto
+    public class Red_SocialDto
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public int Pais_id { get; set; }
-
+        public string Link { get; set; }
     }
 }

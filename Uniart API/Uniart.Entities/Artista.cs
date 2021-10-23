@@ -6,10 +6,9 @@ using System.Text;
 
 namespace Uniart.Entities
 {
-    public class Artista
+    public class Artista: Usuario
     {
-        public int Id { get; set; }
-
+        
         [Required]
         [StringLength(2000)]
         public string Descripcion { get; set; }
@@ -20,10 +19,6 @@ namespace Uniart.Entities
 
         public byte Rating { get; set; }
         public int Q_valoraciones { get; set; }
-
-        [ForeignKey("Id")]
-        public Usuario Usuario { get; set; }
-
         public IList<Red_Social_Artista> Redes_Sociales_Artistas { get; set; }
     }
 }

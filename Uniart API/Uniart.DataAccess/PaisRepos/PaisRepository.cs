@@ -23,11 +23,14 @@ namespace Uniart.DataAccess
 
         public async Task Delete(int id)
         {
-            _context.Entry(new Pais
-            {
-                Id = id
-            }).State = EntityState.Deleted;
+            var paisToDelete = await _context.Paises.FindAsync(id);
+            _context.Paises.Remove(paisToDelete);
             await _context.SaveChangesAsync();
+            //_context.Entry(new Pais
+            //{
+            //    Id = id
+            //}).State = EntityState.Deleted;
+            //await _context.SaveChangesAsync();
         }
 
         public async Task<ICollection<Pais>> GetCollection(string filter)

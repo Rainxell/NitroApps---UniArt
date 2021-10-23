@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Uniart.Dto
 {
-    public class ArtistaDto:UsuarioDto
+    public class ArtistaDto: UsuarioDto
     {
         public string Descripcion { get; set; }
         public string Url_foto_portada { get; set; }
