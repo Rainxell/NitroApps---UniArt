@@ -4,7 +4,7 @@
 	--font-title: 'Share Tech', Helvetica, Calibri, sans-serif;
 	--tsize-small: 10pt;
 	--tsize-regular: 12pt;
-	--tsize-tall: 16pt;
+	--tsize-tall: 15pt;
 	--tsize-big: 28pt;
 	--tsize-bigger: 64pt;
 	--color-main: #F64975;
@@ -16,8 +16,8 @@
 	--color-lighty: #DEEAF4;
 	--color-darky: #798F9F;
 	--color-dark: #002845;
-	--shadow-down: 0pt 0.5pt 4pt 0px #00284544;
-	--shadow-up: 0pt -0.5pt 4pt 0px #00284544;
+	--shadow-down: 0pt 0.5pt 4pt 0px #00284580;
+	--shadow-up: 0pt -0.5pt 4pt 0px #00284580;
 	--separator: 1px solid var(--color-ligthy);
 	--coffeti: url(images/bgs/coffetti.svg);
 	--portada: url(images/bgs/PortadaBg.svg);
@@ -154,22 +154,27 @@ header {
 	box-shadow: var(--shadow-down);
 	background-color: var(--color-light);
 	position: fixed;
-	top: 0px;
-	width: 100%;
 	z-index: 100;
 	display: flex;
 	justify-content: center;
+	top: 0px;
+	width: calc(100% - 4em);
+	column-gap: 2em;
+	row-gap: 0.25em;
+	padding: 1em 2em;
 }
 header > * {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 1em 2em;
 	column-gap: 2em;
 }
 header > div, header > div input { flex-grow: 1; }
 header div * { max-height: 2em; }
-header div #logo { content: url('images/logo.svg'); }
+header div #logo {
+	height: 2em;
+	content: url('images/logo.svg');
+}
 header nav .site { max-height: 1.5em; }
 header nav #chat { content: url('images/nav/m_chat.svg'); }
 header nav #explorar { /**/ }
@@ -183,10 +188,23 @@ header nav #profile {
 }
 header nav #profile.artist { background-image: var(--img-artist); }
 header nav #profile.client { background-image: var(--img-client); }
-header .active { border-bottom: 2pt solid var(--color-main); }
-header nav :not(.active):hover {
-	margin-bottom: 0.2em;
+header .active {
+	border-bottom: 2pt solid var(--color-main);
+	padding-bottom: 2pt;
+	margin-bottom: -4pt;
+}
+header nav > :not(.active):hover {
 	margin-top: -0.2em;
+	padding-bottom: 0.2em;
+}
+header button {
+	min-width: 1em;
+	padding: 0px;
+	margin-left: -4em;
+	background-color: transparent;
+}
+header button:hover {
+	box-shadow: none;
 }
 
 /*footer*/
@@ -196,6 +214,7 @@ footer {
 	font-size: var(--tsize-small);
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 footer > div {
 	display: flex;
@@ -235,7 +254,8 @@ i.ic-star { content: url('images/regular/star_yellow.svg'); }
 i.ic-star.empty { content: url('images/regular/star_white.svg'); }
 i.ic-star.none { content: url('images/regular/star_gray.svg'); }
 i.ic-location { content: url('images/regular/location.svg'); }
-
+i.ic-search { content: url('images/regular/search.svg'); }
+i.ic-explore { content: url('images/regular/explore.svg'); }
 
 
 /*Rating*/
@@ -271,6 +291,7 @@ i.ic-location { content: url('images/regular/location.svg'); }
 	margin-top: -5em;
 	margin-left: calc(-4pt - 1em);
 	border: 4pt solid var(--color-base);
+	background-color: var(--color-base);
 }
 .card.artist .info {
 	display: flex;
@@ -281,6 +302,13 @@ i.ic-location { content: url('images/regular/location.svg'); }
 
 
 /*cards*/
+.cards {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 1em;
+	column-gap: 1em;
+	justify-content: center;
+}
 .card {
 	background-color: var(--color-base);
 	color: var(--color-dark);
@@ -298,15 +326,6 @@ i.ic-location { content: url('images/regular/location.svg'); }
 	margin-top: -0.4em;
 	margin-bottom: 0.4em;
 }
-.card .frame {
-	content: '';
-	width: calc(100% - 1em);
-	height: calc(100% - 1em);
-	margin: calc(-1em - 1pt);
-	position: absolute;
-	border: 1pt solid var(--color-light);
-}
-.card > * { position: relative; }
 .card .img {
 	margin: -1.5em;
 	margin-bottom: 0px;
@@ -337,14 +356,7 @@ i.ic-location { content: url('images/regular/location.svg'); }
 
 
 
-@media (max-width: 1100px) {
-/*:root {
-	--tsize-small: 8pt;
-	--tsize-regular: 10pt;
-	--tsize-tall: 14pt;
-	--tsize-big: 25pt;
-	--tsize-bigger: 56pt;
-}*/
+@media (max-width: 1200px) {
 :root {
 	--tsize-big: 24pt;
 	--tsize-bigger: 56pt;
@@ -352,11 +364,48 @@ i.ic-location { content: url('images/regular/location.svg'); }
 
 }
 
+@media (max-width: 960px) {
+:root {
+	--tsize-big: 22pt;
+	--tsize-bigger: 52pt;
+}
+
+}
 @media (max-width: 750px) {
 
-header { flex-flow: column; }
-header > div { padding-bottom: 0.5em; }
-header nav { padding-top: 0.5em; }
-main { margin-top: 7.5em; }
+header {
+	flex-flow: column;
+	padding: 0.75em 2em 0.5em;
+}
+main { margin-top: 5.5em; }
+
+}
+
+@media (max-width: 640px) {
+:root {
+	/*--tsize-small: 8pt;
+	--tsize-regular: 10pt;*/
+	--tsize-tall: 14pt;
+	--tsize-big: 20pt;
+	--tsize-bigger: 48pt;
+}
+
+}
+
+@media (max-width: 565px) {
+.card {
+	width: 14em;
+	padding: 1.25em;
+	row-gap: 0.75em;
+}
+.card .img {
+	margin: -1.25em;
+	width: calc(100% + 2.5em);
+	margin-bottom: 0px;
+}
+.card.artist img {
+	height: 7em;
+	margin-top: -4.5em;
+}
 
 }

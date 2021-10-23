@@ -22,31 +22,35 @@
 		flex-flow: column;
 		text-align: center;
 	}
-	#s1 { background: var(--portada); }
+	#s1 { background-image: linear-gradient(270deg, var(--color-main) 0%, transparent 100%), var(--portada); }
 	#s2 { background-color: var(--color-sec); }
 	#s3 { background-color: var(--color-main); }
-	#s5 { background-color: var(--color-dark); }
+	#s5 { background-image: linear-gradient(270deg, transparent 0%, var(--color-dark) 10%, var(--color-dark) 90%, transparent 100%), var(--portada); }
+	#s1, #s5 { background-attachment: fixed; }
 	#s3,#s5 { color: var(--color-base); }
 	#s5 .big { color: var(--color-accent); }
 	#s6 { background-color: var(--color-accent); }
+	
+	@-webkit-keyframes infinite-horizon-1 {
+		0% {
+			background-position: 0% 0%; }
+		100% { background-position: 0px 0px, 0% calc(-100% - 1em); }
+	}
+	@keyframes infinite-horizon-1 {
+		0% {
+			background-position: 0% 0%; }
+		100% { background-position: 0px 0px, 0% calc(-100% - 1em); }
+	}
 
 	#s1 {
 		flex-flow: row;
 		flex-wrap: wrap;
 		justify-content: space-around;
-		background-attachment: fixed;
 		/*width: calc(100% - 14em); /* (5em + 2em)*2 */
+		-webkit-animation: infinite-horizon-1 5s linear infinite;
+		animation: infinite-horizon-1 5s linear infinite;
 	}
-	#s1 * { position: relative; }
-	#s1::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(270deg, #F64975 0%, rgba(246, 73, 117, 0) 100%);
-	}
+	/*#s1 * { position: relative; }*/
 	#icon-big-wt {
 		width: 50%;
 		flex-grow: 0;
@@ -54,15 +58,15 @@
 	.card.dark {
 		color: var(--color-light);
 		background-color: var(--color-dark);
-		border: 1pt solid var(--color-sec);
-		outline: 4pt solid var(--color-dark);
-		padding: 2em;
+		/*border: 1pt solid var(--color-sec);
+		outline: 4pt solid var(--color-dark);*/
+		padding: 2.25em;
 		max-width: calc(50% - 10em);
 		min-width: 24em;
 		flex-grow: 1;
 		display: flex;
 		flex-flow: column;
-		row-gap: 2em;
+		row-gap: 1.5em;
 	}
 	.card.dark p { font-weight: bold; }
 	.card.dark ul li { font-size: var(--tsize-small); }
@@ -116,7 +120,6 @@
 		row-gap: 2em;
 		justify-content: center;
 		align-items: center;
-		flex-wrap: wrap;
 	}
 	#s5 .desc ul, #s5 .desc img { min-width: 16em; }
 	#s5 .desc img { max-width: 67%; }
@@ -133,18 +136,32 @@
 		margin-bottom: 0.5em;
 		font-size: var(--tsize-tall);
 	}
-	@media (max-width: 1100px) {
-	main > * { 
-		padding: 4em 2em;
-		column-gap: 2em;
+	@media (max-width: 1024px) {
+		main > * { 
+			padding: 4em 1em;
+			column-gap: 2em;
+		}
+		#s5 .desc ul { max-width: 18em; }
+		#s5 .desc img { max-width: 55%; }
+	}
+	@media (max-width: 800px) {
+		#s5 .desc { flex-wrap: wrap; }
+	}
+	@media (max-width: 960px) {
+		.card.dark {
+			padding: 1.5em;
+			row-gap: 1em;
+			min-width: 22em;
+		}
 	}
 	</style>
 </head>
 <body>
 	<header>
 		<div>
-			<div id="logo" class="active"></div>
+			<a href="#" class="active"><div id="logo"></div></a>
 			<input type="text" id="search" placeholder="Busca por nombre del producto o artista">
+			<button id="search"><i class="ic-search"></i></button>
 		</div>
 		<nav>
 			<a href="#"><div id="explorar" class="site">Explorar</div></a>
@@ -177,7 +194,56 @@
 			<div class="cards">
 				<div class="card">
 					<div class="img"></div>
-					<div class="frame"></div>
+					<h1><a href="#">Realizaré producto realizaré producto</a></h1>
+					<div class="resume">
+						<a href="#"><span class="user">
+							<img src="images/profiles/photo-profile-artist.png" alt="nomusu">
+							<span class="usname">NombreArtista</span>
+						</span></a>
+						<div class="rating small">
+							<i class="ic-star"></i>
+							<div class="prom">/</div>
+							<div class="votes">-</div>
+						</div>
+					</div>
+					<div class="resume">
+						<div>
+							<strong>2d</strong>
+							APROX.
+						</div>
+						<div>
+							DESDE
+							<strong>$10</strong>
+						</div>
+					</div>
+				</div><!--card-->
+				<div class="card">
+					<div class="img"></div>
+					<h1><a href="#">Realizaré producto realizaré producto</a></h1>
+					<div class="resume">
+						<a href="#"><span class="user">
+							<img src="images/profiles/photo-profile-artist.png" alt="nomusu">
+							<span class="usname">NombreArtista</span>
+						</span></a>
+						<div class="rating small">
+							<i class="ic-star"></i>
+							<div class="prom">/</div>
+							<div class="votes">-</div>
+						</div>
+					</div>
+					<div class="resume">
+						<div>
+							<strong>2d</strong>
+							APROX.
+						</div>
+						<div>
+							DESDE
+							<strong>$10</strong>
+						</div>
+					</div>
+				</div><!--card-->
+				<div class="card">
+					<div class="img"></div>
 					<h1><a href="#">Realizaré producto realizaré producto</a></h1>
 					<div class="resume">
 						<a href="#"><span class="user">
@@ -210,7 +276,34 @@
 			<div class="cards">
 				<div class="card artist">
 					<div class="img"></div>
-					<div class="frame"></div>
+					<div class="resume">
+						<img src="images/profiles/photo-profile-artist.png" alt="imagen artista">
+						<div class="info">
+							<h2 class="aname">NombreArtista</h2>
+							<span class="alocation"><i class="ic-location"></i> Perú</span>
+						</div>
+					</div>
+					<ul>
+						<li>Actividad 1...</li>
+						<li>Actividad 2...</li>
+					</ul>
+				</div><!--card-->
+				<div class="card artist">
+					<div class="img"></div>
+					<div class="resume">
+						<img src="images/profiles/photo-profile-artist.png" alt="imagen artista">
+						<div class="info">
+							<h2 class="aname">NombreArtista</h2>
+							<span class="alocation"><i class="ic-location"></i> Perú</span>
+						</div>
+					</div>
+					<ul>
+						<li>Actividad 1...</li>
+						<li>Actividad 2...</li>
+					</ul>
+				</div><!--card-->
+				<div class="card artist">
+					<div class="img"></div>
 					<div class="resume">
 						<img src="images/profiles/photo-profile-artist.png" alt="imagen artista">
 						<div class="info">
