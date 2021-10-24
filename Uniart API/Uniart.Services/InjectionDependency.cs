@@ -5,6 +5,7 @@ using System.Text;
 using Uniart.DataAccess;
 using Uniart.DataAccess.Variacion_DetalleRepos;
 using Uniart.Services.Variacion_DetalleServ;
+using Uniart.DataAccess.ComisionRepos;
 
 namespace Uniart.Services
 {
@@ -24,6 +25,19 @@ namespace Uniart.Services
             services.AddTransient<IVariacion_DetalleService, Variacion_DetalleService>();
             services.AddTransient<IValoracionRepository, ValoracionRepository>();
             services.AddTransient<IValoracionServices, ValoracionService>();
+
+            services.AddTransient<ICaracteristica_OptionRepository, Caracteristica_OptionRepository>();
+            services.AddTransient<ICaracteristicas_OpcionesService, Caracterisiticas_OpcionesService>();
+
+            services.AddTransient<ICaracteristica_OptionRepository, Caracteristica_OptionRepository>();
+            services.AddTransient<ICaracteristicas_OpcionesService, Caracterisiticas_OpcionesService>();
+
+            services.AddTransient<IChatRepository, ChatRepository>();
+            services.AddTransient<IChatService, ChatService>();
+
+            services.AddTransient<IComisionRepository, ComisionRepository>();
+            services.AddTransient<IComisionService, ComisionService>();
+
             return services.AddScoped<IUsuarioRepository, UsuarioRepository>()
                 .AddScoped<IUsuarioService, UsuarioService>();
         }
