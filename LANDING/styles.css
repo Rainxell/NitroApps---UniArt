@@ -189,12 +189,19 @@ header nav #profile {
 }
 header nav #profile.artist { background-image: var(--img-artist); }
 header nav #profile.client { background-image: var(--img-client); }
-header .active {
-	border-bottom: 2pt solid var(--color-main);
-	margin-bottom: -12pt;
-    padding-bottom: 2pt;
+header .active { border-bottom: 2pt solid var(--color-main); }
+header div .active {
+	margin-bottom: -14pt;
+	padding-bottom: 2pt;
 }
-header nav .active { padding-bottom: 10pt; }
+header nav .active {
+	padding-bottom: 10pt;
+	margin-bottom: -12pt;
+}
+header nav .active:last-child {
+	padding-bottom: 4pt;
+	margin-bottom: -6pt;
+}
 header nav > :not(.active):hover {
 	margin-top: -0.2em;
 	padding-bottom: 0.2em;
@@ -417,7 +424,15 @@ header > * {
 }
 header a span { display: block; }
 header button { margin-left: -2.5em; }
-header .active { margin-bottom: -8pt; }
+header div .active { margin-bottom: -8pt; }
+header nav .active {
+	padding-bottom: 8pt;
+	margin-bottom: -8pt;
+}
+header nav .active:last-child {
+	padding-bottom: 2pt;
+	margin-bottom: -3pt;
+}
 main { margin-top: 5.5em; }
 }
 
