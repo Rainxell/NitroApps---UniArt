@@ -293,7 +293,7 @@ i.ic-location { content: url('images/regular/location.svg'); }
 .card.artist img {
 	height: 8em;
 	margin-top: -5em;
-	margin-left: calc(-4pt - 1em);
+	margin-left: calc(-5pt - 1em);
 	border: 4pt solid var(--color-base);
 	background-color: var(--color-base);
 }
@@ -301,6 +301,7 @@ i.ic-location { content: url('images/regular/location.svg'); }
 	display: flex;
 	flex-flow: column;
 	row-gap: 0.5em;
+	align-items: flex-end;
 }
 
 
@@ -382,6 +383,19 @@ header a span { display: none; }
 	row-gap: 0.5em;
 }
 .card { max-width: calc(33% - 3.5em); }
+.card.artist .img { border-bottom-left-radius: 3em; }
+.card.artist img {
+	height: 5em;
+	margin-top: -6.5em;
+}
+.card.artist .info {
+	width: 100%;
+	flex-flow: row;
+	column-gap: 0.5em;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
 }
 
 @media (max-width: 640px) {
@@ -418,11 +432,7 @@ main { margin-top: 5.5em; }
 	width: calc(100% + 2.5em);
 	margin-bottom: 0px;
 }
-.card.artist img {
-	height: 7em;
-	margin-top: -4.5em;
-}
-
+.card.artist img { margin-left: calc(-3pt - 1em); }
 
 }
 
@@ -436,9 +446,15 @@ header div #logo { content: url('icon.svg'); }
 	width: calc(100% + 2em);
 	margin-bottom: 0px;
 }
+.card.artist img { margin-left: -1em; }
 .card > .resume:first-child {
 	flex-direction: column;
 	align-items: center;
 }
 
+}
+
+
+@media (max-width: 350px) {
+.card {	max-width: calc(100% - 2em); }
 }
