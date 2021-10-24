@@ -8,7 +8,7 @@ using Uniart.Entities;
 
 namespace Uniart.DataAccess
 {
-    class Servicio_CaracteristicaRepository: IServicio_CaracteristicaRepository
+    public class Servicio_CaracteristicaRepository: IServicio_CaracteristicaRepository
     {
         private readonly UniartDbContext _context;
 

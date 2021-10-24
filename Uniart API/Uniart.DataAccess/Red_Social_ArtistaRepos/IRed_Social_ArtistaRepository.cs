@@ -10,11 +10,11 @@ namespace Uniart.DataAccess
     {
         Task<ICollection<Red_Social_Artista>> GetCollection(string filter);
 
-        Task<Red_Social_Artista> Get(int id);
+        Task<Red_Social_Artista> Get(int id, int id2);
         Task Create(Red_Social_Artista entity);
 
         Task Update(Red_Social_Artista entity);
 
-        Task Delete(int id);
+        Task Delete(int id, int id2);
     }
 }

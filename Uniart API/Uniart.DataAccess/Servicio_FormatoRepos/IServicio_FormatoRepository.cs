@@ -13,7 +13,7 @@ namespace Uniart.DataAccess
         Task<Servicio_Formato> Get(int id, int id2);
         Task Create(Servicio_Formato entity);
 
-        Task Update(Servicio_Formato entity);
+        
 
         
     }

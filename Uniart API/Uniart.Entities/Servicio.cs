@@ -11,7 +11,7 @@ namespace Uniart.Entities
         [StringLength(128)]
         public string Nombre { get; set; }
 
-        public Red_Social Artista_ { get; set; }
+        public Artista Artista_ { get; set; }
 
         [Required]
         public TimeSpan Duracion_esperada { get; set; }

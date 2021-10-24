@@ -8,7 +8,7 @@ using Uniart.Entities;
 
 namespace Uniart.DataAccess
 {
-    public class LicenciaRepository
+    public class LicenciaRepository:ILicenciaRepository
     {
         private readonly UniartDbContext _context;
 

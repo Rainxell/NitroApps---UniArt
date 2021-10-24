@@ -26,9 +26,9 @@ namespace Uniart.DataAccess
             return collection;
         }
 
-        public async Task<Red_Social_Artista> Get(int id)
+        public async Task<Red_Social_Artista> Get(int id, int id2)
         {
-            return await _context.Redes_Sociales_Artistas.FindAsync(id);
+            return await _context.Redes_Sociales_Artistas.FindAsync(id, id2);
         }
 
         public async Task Create(Red_Social_Artista entity)
@@ -44,9 +44,9 @@ namespace Uniart.DataAccess
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(int id, int id2)
         {
-            var artistaToDelete = await _context.Redes_Sociales_Artistas.FindAsync(id);
+            var artistaToDelete = await _context.Redes_Sociales_Artistas.FindAsync(id, id2);
             _context.Redes_Sociales_Artistas.Remove(artistaToDelete);
             await _context.SaveChangesAsync();
         }

@@ -29,14 +29,5 @@ namespace Uniart.DataAccess
             await _context.Set<Servicio_Formato>().AddAsync(entity);
             await _context.SaveChangesAsync();
         }
-
-        public async Task Update(Servicio_Formato entity)
-        {
-            _context.Set<Servicio_Formato>().Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-        }
-
-        
     }
 }

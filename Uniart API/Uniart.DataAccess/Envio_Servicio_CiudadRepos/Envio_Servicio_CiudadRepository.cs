@@ -8,7 +8,7 @@ using Uniart.Entities;
 
 namespace Uniart.DataAccess.Envio_Servicio_CiudadRepos
 {
-    class Envio_Servicio_CiudadRepository: IEnvio_Servicio_CiudadRepository
+    public class Envio_Servicio_CiudadRepository: IEnvio_Servicio_CiudadRepository
     {
         private readonly UniartDbContext _context;
 
@@ -17,7 +17,7 @@ namespace Uniart.DataAccess.Envio_Servicio_CiudadRepos
             _context = context;
         }
 
-        public async Task<Envio_Servicio_Ciudad> GetEnvio_Servicio_Ciudad(int id, int id2)
+        public async Task<Envio_Servicio_Ciudad> Get(int id, int id2)
         {
             return await _context.Envios_Servicios_Ciudades.FindAsync(id, id2);
             
@@ -36,11 +36,6 @@ namespace Uniart.DataAccess.Envio_Servicio_CiudadRepos
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
-        {
-            var artistaToDelete = await _context.Envios_Servicios_Ciudades.FindAsync(id);
-            _context.Envios_Servicios_Ciudades.Remove(artistaToDelete);
-            await _context.SaveChangesAsync();
-        }
+        
     }
 }
