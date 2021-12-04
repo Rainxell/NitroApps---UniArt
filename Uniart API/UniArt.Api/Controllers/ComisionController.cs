@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace UniArt.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ComisionController: ControllerBase
     {
         private readonly IComisionService _service;
@@ -19,6 +21,7 @@ namespace UniArt.Api.Controllers
             _service = service;
         }
         [HttpGet]
+        [AllowAnonymous]
         [Route("{id:int}")]
         public async Task<ResponseDto<ComisionDto>> Get(int id)
         {
@@ -26,6 +29,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task Create([FromBody] ComisionDto request)
         {
             await _service.Create(request);
@@ -33,6 +37,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPut]
+        [AllowAnonymous]
         public async Task<ActionResult<ComisionDto>> PutArtista(int id, [FromBody] ComisionDto request)
         {
             if (id != request.Id)
@@ -43,12 +48,13 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<ComisionDto>> Delete(int id)
         {
             var artistTodelete = _service.Get(id);
             if (artistTodelete == null)
                 return NotFound();
-            await _service.Delete(artistTodelete.Id);
+            await _service.Delete(id);
             return NoContent();
         }
     }

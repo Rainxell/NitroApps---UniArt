@@ -20,7 +20,7 @@ namespace Uniart.DataAccess
         public async Task<ICollection<Artista>> GetCollection(string filter)
         {
             var collection = await _context.Artistas
-                .Where(c => c.Nombre.Contains(filter))
+                .Where(c => c.Artista_.UserName.Contains(filter))
                 .ToListAsync();
 
             return collection;

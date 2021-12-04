@@ -5,9 +5,9 @@ using System.Text;
 using Uniart.DataAccess;
 using Uniart.DataAccess.ComisionRepos;
 using Uniart.DataAccess.Envio_Servicio_CiudadRepos;
-using Uniart.DataAccess.EnvioRepos;
 using Uniart.DataAccess.Variacion_DetalleRepos;
 using Uniart.Services.Variacion_DetalleServ;
+using Uniart.DataAccess.EnvioRepos;
 
 namespace Uniart.Services
 {
@@ -49,8 +49,6 @@ namespace Uniart.Services
             services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<IRed_Social_ArtistaRepository, Red_Social_ArtistaRepository>();
             services.AddTransient<IRed_Social_ArtistaService, Red_Social_ArtistaService>();
-            services.AddTransient<IPropuestaRepository, PropuestaRepository>();
-            services.AddTransient<IPropuestaService, PropuestaService>();
             services.AddTransient<IMensajeRepository, MensajeRepository>();
             services.AddTransient<IMensajeService, MensajeService>();
             services.AddTransient<ILicenciaRepository, LicenciaRepository>();

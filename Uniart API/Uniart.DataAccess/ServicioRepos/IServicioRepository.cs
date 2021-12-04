@@ -16,5 +16,6 @@ namespace Uniart.DataAccess
         Task Update(Servicio entity);
 
         Task Delete(int id);
+        Task<ICollection<Servicio>> GetServxArtista(int id);
     }
 }

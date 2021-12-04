@@ -4,11 +4,12 @@ using System.Text;
 
 namespace Uniart.Dto
 {
-    public class ArtistaDto: UsuarioDto
+    public class ArtistaDto
     {
-        public string Descripcion { get; set; }
-        public string Url_foto_portada { get; set; }
-        public byte Rating { get; set; }
-        public int Q_valoraciones { get; set; }
+        public int Id { get; set; }
+        //public string Descripcion { get; set; }
+        //public string Url_foto_portada { get; set; }
+        //public byte Rating { get; set; }
+        //public int Q_valoraciones { get; set; }
     }
 }

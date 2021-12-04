@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +13,7 @@ namespace UniArt.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    
     public class Variacion_DetalleController : ControllerBase
     {
         private readonly IVariacion_DetalleService _service;
@@ -21,6 +23,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("{Servicio_Variacion_id:int}, {Caracteristica_Opciones_id:int}")]
         public async Task<ResponseDto<Variacion_DetalleDto>> Get(int Servicio_Variacion_id, int Caracteristica_Opciones_id)
         {
@@ -28,6 +31,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task Create([FromBody] Variacion_DetalleDto request)
         {
             await _service.Create(request);
@@ -35,6 +39,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<ActionResult<ArtistaDto>> Put(int id, int id2,  [FromBody] Variacion_DetalleDto request)
         {
             if (id != request.Caracteristica_Opciones_id || id2 != request.Servicio_Variacion_id )

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +12,7 @@ namespace UniArt.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class Servicio_TemaController : ControllerBase
     {
         private readonly IServicio_TemaService _service;
@@ -20,6 +22,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("{servicioid:int}, {temaid:int}")]
         public async Task<ResponseDto<Servicio_TemaDto>> Get(int servicioid, int temaid)
         {
@@ -27,6 +30,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task Create([FromBody] Servicio_TemaDto request)
         {
             await _service.Create(request);

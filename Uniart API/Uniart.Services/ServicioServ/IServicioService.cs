@@ -13,5 +13,6 @@ namespace Uniart.Services
         Task Create(ServicioDto request);
         Task Update(ServicioDto request);
         Task Delete(int id);
+        Task<ICollection<ServicioDto>> GetServxArtista(int filter);
     }
 }

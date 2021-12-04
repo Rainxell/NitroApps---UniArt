@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Uniart.Entities;
 
-namespace Uniart.DataAccess.EnvioRepos
+namespace Uniart.DataAccess
 {
     public interface IEnvioRepository
     {

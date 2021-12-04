@@ -37,7 +37,13 @@ namespace Uniart.Services
                 Monto_pago_final = artista.Monto_pago_final,
                 Fecha_inicio = artista.Fecha_inicio,
                 Fecha_fin = artista.Fecha_fin,
-                Fecha_entrega = artista.Fecha_entrega
+                Fecha_entrega = artista.Fecha_entrega,
+                Servicio_id = artista.Servicio_id,
+                Review_Usuario_id = artista.Review_Usuario_id,
+                Usuario_id = artista.Usuario_id,
+                Servicio_Variacion_id = artista.Servicio_Variacion_id,
+                Descripcion = artista.Descripcion
+
             };
 
             response.Success = true;
@@ -56,8 +62,12 @@ namespace Uniart.Services
                     Monto_pago_final = request.Monto_pago_final,
                     Fecha_inicio = request.Fecha_inicio,
                     Fecha_fin = request.Fecha_fin,
-                    Fecha_entrega = request.Fecha_entrega
-
+                    Fecha_entrega = request.Fecha_entrega,
+                    Servicio_id = request.Servicio_id,
+                    Review_Usuario_id = request.Review_Usuario_id,
+                    Usuario_id = request.Usuario_id,
+                    Servicio_Variacion_id = request.Servicio_Variacion_id,
+                    Descripcion = request.Descripcion
                 });
             }
             catch (Exception ex)
@@ -76,7 +86,12 @@ namespace Uniart.Services
                 Monto_pago_final = request.Monto_pago_final,
                 Fecha_inicio = request.Fecha_inicio,
                 Fecha_fin = request.Fecha_fin,
-                Fecha_entrega = request.Fecha_entrega
+                Fecha_entrega = request.Fecha_entrega,
+                Servicio_id = request.Servicio_id,
+                Review_Usuario_id = request.Review_Usuario_id,
+                Usuario_id = request.Usuario_id,
+                Servicio_Variacion_id = request.Servicio_Variacion_id,
+                Descripcion = request.Descripcion
 
             });
         }

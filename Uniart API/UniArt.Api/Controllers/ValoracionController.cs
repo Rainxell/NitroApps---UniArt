@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +12,7 @@ namespace UniArt.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ValoracionController : ControllerBase
     {
         private readonly IValoracionServices _service;
@@ -20,6 +22,7 @@ namespace UniArt.Api.Controllers
         }
        
         [HttpGet]
+        [AllowAnonymous]
         [Route("{userid:int}, {reviewid:int}")]
         public async Task<ResponseDto<ValoracionDto>> Get(int userid, int reviewid)
         {
@@ -27,6 +30,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task Create([FromBody] ValoracionDto request)
         {
             await _service.Create(request);
@@ -34,6 +38,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpDelete("{userid:int}, {reviewid:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<ValoracionDto>> Delete(int userid, int reviewid)
         {
             var artistTodelete = _service.Get(userid, reviewid);

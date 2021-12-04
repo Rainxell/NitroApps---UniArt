@@ -26,5 +26,6 @@ namespace Uniart.Entities
         public String Url_imagen_referencia { get; set; }
 
         public IList<Variacion_Detalle> Variacion_Detalles { get; set; }
+        public IList<Comision> ComisionSV { get; set; }
     }
 }

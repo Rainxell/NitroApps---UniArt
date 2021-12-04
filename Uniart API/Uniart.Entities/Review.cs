@@ -22,6 +22,8 @@ namespace Uniart.Entities
         [Required]
         public int Valor_Negativo { get; set; }
         public IList<Valoracion> Valoraciones { get; set; }
+        public IList<Comision> Comisiones { get; set; }
+        //public IList<Comision> Comisionesa { get; set; }
 
     }
 }

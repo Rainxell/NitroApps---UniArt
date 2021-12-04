@@ -35,6 +35,7 @@ namespace Uniart.DataAccess
         {
             await _context.Set<Servicio>().AddAsync(entity);
             await _context.SaveChangesAsync();
+
         }
 
         public async Task Update(Servicio entity)
@@ -49,6 +50,14 @@ namespace Uniart.DataAccess
             var artistaToDelete = await _context.Servicios.FindAsync(id);
             _context.Servicios.Remove(artistaToDelete);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<Servicio>> GetServxArtista(int id)
+        {
+            var collection = await _context.Servicios
+               .Where(c => c.Artista_id.Equals((id)))
+               .ToListAsync();
+            return collection;
         }
     }
 }

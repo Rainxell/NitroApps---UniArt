@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +12,7 @@ namespace UniArt.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class Servicio_FormatoController : ControllerBase
     {
         private readonly IServicio_FormatoService _service;
@@ -20,6 +22,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("{servicioid:int}, {formatoid:int}")]
         public async Task<ResponseDto<Servicio_FormatoDto>> Get(int servicioid, int formatoid)
         {
@@ -27,6 +30,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task Create([FromBody] Servicio_FormatoDto request)
         {
             await _service.Create(request);

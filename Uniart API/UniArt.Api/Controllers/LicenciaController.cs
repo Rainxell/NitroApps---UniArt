@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +12,7 @@ namespace UniArt.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class LicenciaController : ControllerBase
     {
         private readonly ILicenciaService _service;
@@ -19,12 +21,14 @@ namespace UniArt.Api.Controllers
             _service = service;
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IEnumerable<LicenciaDto>> List([FromQuery] string filter)
         {
             return await _service.GetCollection(filter);
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("{id:int}")]
         public async Task<ResponseDto<LicenciaDto>> Get(int id)
         {
@@ -32,6 +36,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task Create([FromBody] LicenciaDto request)
         {
             await _service.Create(request);
@@ -39,6 +44,7 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpPut]
+        [AllowAnonymous]
         public async Task<ActionResult<LicenciaDto>> Put(int id, [FromBody] LicenciaDto request)
         {
             if (id != request.Id)
@@ -49,12 +55,13 @@ namespace UniArt.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<LicenciaDto>> Delete(int id)
         {
             var artistTodelete = _service.Get(id);
             if (artistTodelete == null)
                 return NotFound();
-            await _service.Delete(artistTodelete.Id);
+            await _service.Delete(id);
             return NoContent();
         }
 

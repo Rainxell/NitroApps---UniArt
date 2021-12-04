@@ -13,7 +13,7 @@ namespace Uniart.Services
 
         Task Create(UsuarioDto request);
 
-        Task Update(int id, UsuarioDto request);
+        //Task Update(int id, UsuarioDto request);
 
         Task Delete(int id);
     }

@@ -26,14 +26,14 @@ namespace Uniart.Services
                 Select(p => new UsuarioDto
                 {
                     Id = p.Id,
-                    nombre_usuario = p.Nombre_usuario,
-                    password = p.Password,
-                    email =p.Email,
-                    nombre = p.Nombre,
-                    apellido = p.Apellido,
-                    url_foto_perfil = p.Url_foto_perfil,
-                    fecha_registro = p.Fecha_registro,
-
+                    //nombre_usuario = p.Usuario_.UserName,
+                    ///password = p.Password,
+                    //email = p.Usuario_.Email,
+                    //nombre = p.Usuario_.Nombre,
+                   // apellido = p.Usuario_.Apellido,
+                   // url_foto_perfil = p.Usuario_.Url_foto_perfil,
+                   // fecha_registro = p.Usuario_.Fecha_registro,
+                    //ciudad_id = p.Usuario_.Ciudad_id
                 })
                 .ToList();
 
@@ -53,13 +53,14 @@ namespace Uniart.Services
             response.Result = new UsuarioDto
             {
                 Id = usuario.Id,
-                nombre_usuario = usuario.Nombre_usuario,
-                password = usuario.Password,
-                email = usuario.Email,
-                nombre = usuario.Nombre,
-                apellido = usuario.Apellido,
-                url_foto_perfil = usuario.Url_foto_perfil,
-                fecha_registro = usuario.Fecha_registro,
+                //nombre_usuario = usuario.Usuario_.UserName,
+               // password = usuario.Password,
+                //email = usuario.Usuario_.Email,
+                //nombre = usuario.Usuario_.Nombre,
+                //apellido = usuario.Usuario_.Apellido,
+               // url_foto_perfil = usuario.Usuario_.Url_foto_perfil,
+               // fecha_registro = usuario.Usuario_.Fecha_registro,
+               // ciudad_id = usuario.Usuario_.Ciudad_id
             };
 
             response.Success = true;
@@ -74,13 +75,14 @@ namespace Uniart.Services
                 await _repository.Create(new Usuario
                 {
                     Id = request.Id,
-                    Nombre_usuario = request.nombre_usuario,
-                    Password = request.password,
-                    Email = request.email,
-                    Nombre = request.nombre,
-                    Apellido = request.apellido,
-                    Url_foto_perfil = request.url_foto_perfil,
-                    Fecha_registro = request.fecha_registro,
+        //            UserName = request.nombre_usuario,
+        //            //Password = request.password,
+        //            Email = request.email,
+        //            Nombre = request.nombre,
+        //            Apellido = request.apellido,
+        //            Url_foto_perfil = request.url_foto_perfil,
+        //            Fecha_registro = request.fecha_registro,
+        //            Ciudad_id = request.ciudad_id
                 });
             }
             catch (Exception ex)
@@ -90,20 +92,21 @@ namespace Uniart.Services
             }
         }
 
-        public async Task Update(int id, UsuarioDto request)
-        {
-            await _repository.Update(new Usuario
-            {
-                Id = request.Id,
-                Nombre_usuario = request.nombre_usuario,
-                Password = request.password,
-                Email = request.email,
-                Nombre = request.nombre,
-                Apellido = request.apellido,
-                Url_foto_perfil = request.url_foto_perfil,
-                Fecha_registro = request.fecha_registro,
-            });
-        }
+        //public async Task Update(int id, UsuarioDto request)
+        //{
+        //    await _repository.Update(new Usuario
+        //    {
+        //        Id = request.Id,
+        //        UserName = request.nombre_usuario,
+        //        //Password = request.password,
+        //        Email = request.email,
+        //        Nombre = request.nombre,
+        //        Apellido = request.apellido,
+        //        Url_foto_perfil = request.url_foto_perfil,
+        //        Fecha_registro = request.fecha_registro,
+        //        Ciudad_id = request.ciudad_id
+        //    });
+        //}
 
         public async Task Delete(int id)
         {

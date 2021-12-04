@@ -7,6 +7,9 @@ namespace Uniart.Dto
     public class ServicioDto
     {
         public int Id { get; set; }
+        public int Artista_id { get; set; }
+        public int Tecnica_id { get; set; }
+        public int Licencia_id { get; set; }
         public string Nombre { get; set; }
         public TimeSpan Duracion_esperada { get; set; }
         public Decimal Precio_base { get; set; }
@@ -17,5 +20,7 @@ namespace Uniart.Dto
         public Boolean acepta_rembolso { get; set; }
         public String Acerca_servicio { get; set; }
         public int Q_reviciones { get; set; }
+        public string url_imagen { get; set; }
+        
     }
 }

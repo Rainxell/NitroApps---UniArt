@@ -24,7 +24,7 @@ namespace Uniart.Services
                 await _repository.Create(new Servicio_Tema()
                 {
                     Servicio_id = request.Servicio_id,
-                    Tema_id = request.Tema_id
+                    Tema_id = request.Tema_id,
 
                 }) ;
             }

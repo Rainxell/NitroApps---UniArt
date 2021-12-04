@@ -1,0 +1,94 @@
+:root {
+  --white-main: #F2F6F9;
+  --black-main: #002845;
+}
+
+body {
+  margin: 0;
+  background-color: var(--white-main);
+  color: var(--black-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Maven Pro', 'Segoe UI', 'Roboto',
+  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  margin-top: 4.5em;
+  color: #002845;
+}
+
+strong {
+  font-weight: bold !important;
+}
+a {
+  color: inherit;
+}
+img {
+  max-width: 100%;
+}
+
+.MuiDrawer-root > .MuiPaper-root {
+  width: 16em;
+  margin-top: 5em;
+  box-sizing: border-box;
+  padding: 2em 1em;
+  height: calc(100% - 5em);
+}
+.MuiDrawer-root .MuiPaper-root {
+  background-color: transparent;
+  color: var(--black-main);
+}
+.after-drawer {
+  margin-left: 16em !important;
+  width: calc(100% - 16em) !important;
+}
+
+.check-all-group {
+  display: flex;
+  flex-flow: column;
+  row-gap: 0.25em;
+}
+label {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.25em;
+  align-items: center;
+}
+input[type='number'] {
+  text-align: right;
+}
+
+li {
+  column-gap: 0.5em;
+}
+
+.filter-up { 
+  justify-content: space-between !important;
+  padding: 1em 0px;
+}
+.filter-up li { width: fit-content; }
+.cards {
+  padding: 1.5em 0px;
+  column-gap: 0.5em;
+  row-gap: 0.5em;
+}
+
+p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/*.stack-chips > .MuiInput-root {
+  max-height: 5em;
+  overflow: auto;
+}
+.stack-chips > .MuiInput-root > input {
+  width: fit-content;
+}*/

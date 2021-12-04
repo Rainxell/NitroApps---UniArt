@@ -10,8 +10,9 @@ namespace Uniart.Entities
         [Required]
         [StringLength(128)]
         public string Nombre { get; set; }
+        public int Artista_id { get; set; }
 
-        public Artista Artista_ { get; set; }
+        public Artista Artista { get; set; }
 
         [Required]
         public TimeSpan Duracion_esperada { get; set; }
@@ -46,9 +47,11 @@ namespace Uniart.Entities
 
         [Required]
         public int Q_reviciones { get; set; }
-
+        
+        public string url_imagen { get; set; }
         public IList<Servicio_Formato> Servicios_Formatos { get; set; }
         public IList<Servicio_Tema> Servicios_Temas { get; set; }
         public IList<Envio_Servicio_Ciudad> Envios_Servicios_Ciudades { get; set; }
+        public IList<Comision> Comisiones { get; set; }
     }
 }

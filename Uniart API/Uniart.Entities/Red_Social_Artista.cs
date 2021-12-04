@@ -14,7 +14,7 @@ namespace Uniart.Entities
 
         public int Artista_id { get; set; }
         [ForeignKey("Artista_id")]
-        public Artista Artista { get; set; }
+        public Artista Artista_ { get; set; }
 
         [Required]
         [StringLength(64)]
